@@ -16,8 +16,8 @@ export async function baseFetch<T>(
     try {
         const response = await api.request<T>({
             url: endpoint,
-            method: options.method || 'GET',
             ...options,
+            method: options.method || 'GET',
         });
         return response.data;
     } catch (err: any) {
@@ -28,11 +28,11 @@ export async function baseFetch<T>(
 
 api.interceptors.request.use(config => {
     const tokens = useAuthStore.getState().tokens;
-    if(tokens?.access) {
-        config.headers['Authorization'] = `Bearer ${tokens.access}`;
+    if (tokens?.access?.token) {
+        config.headers['Authorization'] = `Bearer ${tokens.access.token}`;
     }
     return config;
-})
+});
 
 api.interceptors.response.use(
     response => response,

@@ -7,7 +7,7 @@ interface ProductState {
     filteredProducts: ProductResponse[];
     selectedProduct: ProductResponse | null;
     loading: boolean;
-    error: Error | null;
+    error: string | null;
 
     getAllProducts: () => Promise<void>;
     getProductById: (uuid: string) => Promise<void>;
@@ -113,6 +113,4 @@ export const useProductsStore = create<ProductState>((set,get) => ({
             set({ loading: false });
         }
     },
-
-
 }));

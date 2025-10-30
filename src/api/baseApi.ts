@@ -3,16 +3,20 @@ import type { AxiosRequestConfig } from 'axios';
 import { useAuthStore } from '../store/authStore';
 
 export const api = axios.create({
-    baseURL: 'http://localhost:8080/api/v1/',
+    baseURL: 'http://localhost:8080/api/v1',
     headers: {
         'Content-Type': 'application/json',
     },
 });
 
-export async function baseFetch<T>(endpoint: string, options?: AxiosRequestConfig): Promise<T> {
+export async function baseFetch<T>(
+    endpoint: string,
+    options: AxiosRequestConfig = {}
+): Promise<T> {
     try {
         const response = await api.request<T>({
             url: endpoint,
+            method: options.method || 'GET',
             ...options,
         });
         return response.data;
